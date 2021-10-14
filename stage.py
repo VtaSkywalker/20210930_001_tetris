@@ -1,5 +1,6 @@
 from numpy.core.numeric import isclose
 from numpy.core.shape_base import block
+import pygame
 from blocks import Block
 import numpy as np
 import random
@@ -16,6 +17,10 @@ class Stage:
             用于装填各种方块的矩阵，每种字符表示一种颜色，该字符与方块属性对应
         currentBlock : Block
             当前正在操作的方块
+        state : int
+            游戏是否正在运行
+        score : int
+            游戏得分
     """
     STAGE_X = 8 # 地图宽度
     STAGE_Y = 12 # 地图高度
@@ -29,6 +34,8 @@ class Stage:
             for eachGrid in eachLine:
                 eachGrid = ""
         self.nextBlock()
+        self.state = 1 # 游戏是否正在运行
+        self.score = 0 # 游戏分数
 
     def nextBlock(self):
         """
@@ -73,9 +80,9 @@ class Stage:
             self.currentBlock.posY += 1
             return True
         # 如果不能再往下移动，则应该先检查是否game over，然后（如果没有挂）再切换到下一个方块
-        print("Crash!")
         if(self.checkIfFail()):
             self.gameOver()
+        self.score += 1 # 没有gameover时，加分
         # 如果没有game over，即可进入下一个方块，在此之前先完成之前那个方块的放置
         self.placeBlock()
         self.nextBlock()
@@ -113,7 +120,7 @@ class Stage:
             游戏结束
         """
         print("gameOver!")
-        exit(0)
+        self.state = 0
 
     def checkFullRow(self):
         """
@@ -125,7 +132,7 @@ class Stage:
                 所有被填满的行
         """
         rows = []
-        for (rowIdx, eachRow) in zip(range(Stage.STAGE_Y), self.grids):
+        for (rowIdx, eachRow) in zip(range(Stage.STAGE_Y + 1), self.grids):
             isFull = True
             for eachGrid in eachRow:
                 if(eachGrid == ""):
@@ -149,6 +156,7 @@ class Stage:
                 self.grids[Y+1][X] = self.grids[Y][X]
         for X in range(Stage.STAGE_X):
             self.grids[0][X] = ''
+        self.score += 10 # 消除一行加10分
 
     def refresh(self):
         """
@@ -191,7 +199,7 @@ class Stage:
         for (y, dy) in zip(range(blockSizeY), range(-self.currentBlock.blockSize[1]+1, 1)):
             for (x, dx) in zip(range(blockSizeX), range(0, self.currentBlock.blockSize[0])):
                 if(shape[y][x] != ""):
-                    if(not (0 <= posX + dx < Stage.STAGE_X and posY < Stage.STAGE_Y + 1)):
+                    if(not (0 <= posX + dx < Stage.STAGE_X and posY + dy < Stage.STAGE_Y + 1)):
                         return True
                     if(0 <= posX + dx < Stage.STAGE_X and 0 <= posY + dy < Stage.STAGE_Y + 1 and self.grids[posY+dy][posX+dx] != ""):
                         return True
@@ -216,3 +224,34 @@ class Stage:
                 print("%c\t" % (eachGrid if eachGrid else ' '), end="")
             print("")
         print("")
+
+    def drawInPygame(self, screen, pixelPerGrid, edgeSize):
+        """
+            在pygame界面中画出游戏画面
+
+            screen : pygame中的screen
+                游戏界面
+            pixelPerGrid : int
+                每个方块的像素大小
+            edgeSize : int
+                游戏界面边框大小
+        """
+        screen.fill((0,0,0))
+        totalGrids = copy.copy(self.grids)
+        blockSizeX = self.currentBlock.blockSize[0]
+        blockSizeY = self.currentBlock.blockSize[1] 
+        for (y, dy) in zip(range(blockSizeY), range(-self.currentBlock.blockSize[1]+1, 1)):
+            for (x, dx) in zip(range(blockSizeX), range(0, self.currentBlock.blockSize[0])):
+                if(Stage.STAGE_Y + 1 > self.currentBlock.posY+dy >= 0 and Stage.STAGE_X > self.currentBlock.posX+dx >= 0): # 剔除负数对显示的影响
+                    if(self.currentBlock.shape[y][x] != ""): # 空白的当然不去覆盖原有的了
+                        if(self.currentBlock.posY+dy >= 0): # 越界的当然不显示了
+                            totalGrids[self.currentBlock.posY+dy][self.currentBlock.posX+dx] = self.currentBlock.shape[y][x]
+        for idx_y, eachLine in zip(range(self.STAGE_Y + 1), totalGrids):
+            for idx_x, eachGrid in zip(range(self.STAGE_X), eachLine):
+                if(idx_y == 0):
+                    continue
+                if(eachGrid):
+                    pygame.draw.rect(screen, Block.COLOR_DICT[eachGrid], pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid), width=1)
+                # print("%c\t" % (eachGrid if eachGrid else ' '), end="")
+            # print("")
+        # print("")
