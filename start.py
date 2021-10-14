@@ -1,5 +1,7 @@
 import pygame
 from stage import *
+import tkinter
+import tkinter.messagebox
 
 def startGame():
     pygame.init()
@@ -37,7 +39,9 @@ def startGame():
         # 游戏结束，停下来
         if(st.state == 0):
             print("score: %d" % st.score)
-            input()
+            result = tkinter.messagebox.showinfo(title = '游戏结束！',message='得分：%d' % st.score)
+            exit(0)
 
 if __name__ == "__main__":
-    startGame()
+    while(True):
+        startGame()
