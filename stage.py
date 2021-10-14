@@ -4,6 +4,7 @@ from blocks import Block
 import numpy as np
 import random
 import copy
+import os
 
 class Stage:
     """
@@ -200,6 +201,7 @@ class Stage:
         """
             在命令窗画出当前界面，用于调试
         """
+        os.system("clear")
         totalGrids = copy.copy(self.grids)
         blockSizeX = self.currentBlock.blockSize[0]
         blockSizeY = self.currentBlock.blockSize[1] 

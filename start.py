@@ -1,22 +1,7 @@
-from numpy import e
-from blocks import Block
-from stage import Stage
-import getch
 import pygame
+from stage import *
 
-def testBlockRotate():
-    for i in range(5):
-        b = Block(i)        
-        print(0)
-        print(b.shape)
-        print(b.getHeight())
-        for j in range(5):
-            b.rotate()
-            print(j+1)
-            print(b.shape)
-            print(b.getHeight())
-
-def testStage1():
+def startGame():
     pygame.init()
     st = Stage()
     st.drawInCmd()
@@ -47,4 +32,4 @@ def testStage1():
         i += 1
 
 if __name__ == "__main__":
-    testStage1()
+    startGame()
