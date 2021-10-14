@@ -1,5 +1,6 @@
 from blocks import Block
 from stage import Stage
+import getch
 
 def testBlockRotate():
     for i in range(5):
@@ -16,8 +17,18 @@ def testBlockRotate():
 def testStage1():
     st = Stage()
     st.drawInCmd()
-    for i in range(100):
-        st.slide()
+    while(True):
+        inputCh = getch.getch()
+        if(inputCh == "a"):
+            st.move(0)
+        elif(inputCh == "d"):
+            st.move(1)
+        elif(inputCh == 'w'):
+            st.rotate()
+        elif(inputCh == 's'):
+            st.downImm()
+        else:
+            st.slide()
         st.drawInCmd()
         print(st.currentBlock.posX, st.currentBlock.posY)
 
