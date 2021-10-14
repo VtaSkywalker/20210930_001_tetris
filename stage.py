@@ -22,8 +22,8 @@ class Stage:
         score : int
             游戏得分
     """
-    STAGE_X = 8 # 地图宽度
-    STAGE_Y = 12 # 地图高度
+    STAGE_X = 10 # 地图宽度
+    STAGE_Y = 14 # 地图高度
 
     def __init__(self):
         """
