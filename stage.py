@@ -72,7 +72,10 @@ class Stage:
             self.currentBlock.posY += 1
             return True
         # 如果不能再往下移动，则应该先检查是否game over，然后（如果没有挂）再切换到下一个方块
+<<<<<<< HEAD
         print("Crash!")
+=======
+>>>>>>> 401a3c87250745e3551a64a022ebc68e5452375e
         if(self.checkIfFail()):
             self.gameOver()
         # 如果没有game over，即可进入下一个方块，在此之前先完成之前那个方块的放置
@@ -88,7 +91,11 @@ class Stage:
         blockSizeY = self.currentBlock.blockSize[1] 
         for (y, dy) in zip(range(blockSizeY), range(-self.currentBlock.blockSize[1]+1, 1)):
             for (x, dx) in zip(range(blockSizeX), range(0, self.currentBlock.blockSize[0])):
+<<<<<<< HEAD
                 if(self.currentBlock.shape[y][x] != "" and (self.currentBlock.posY+dy >= 0)): # 注意不要溢出！
+=======
+                if(self.currentBlock.shape[y][x] != ""):
+>>>>>>> 401a3c87250745e3551a64a022ebc68e5452375e
                     self.grids[self.currentBlock.posY+dy][self.currentBlock.posX+dx] = self.currentBlock.shape[y][x]
 
     def downImm(self):
@@ -111,8 +118,12 @@ class Stage:
         """
             游戏结束
         """
+<<<<<<< HEAD
         print("gameOver!")
         exit(0)
+=======
+        pass
+>>>>>>> 401a3c87250745e3551a64a022ebc68e5452375e
 
     def checkFullRow(self):
         """
@@ -190,9 +201,13 @@ class Stage:
         for (y, dy) in zip(range(blockSizeY), range(-self.currentBlock.blockSize[1]+1, 1)):
             for (x, dx) in zip(range(blockSizeX), range(0, self.currentBlock.blockSize[0])):
                 if(shape[y][x] != ""):
+<<<<<<< HEAD
                     if(not (0 <= posX + dx < Stage.STAGE_X and posY < Stage.STAGE_Y + 1)):
                         return True
                     if(0 <= posX + dx < Stage.STAGE_X and 0 <= posY + dy < Stage.STAGE_Y + 1 and self.grids[posY+dy][posX+dx] != ""):
+=======
+                    if(not (0 <= posX + dx < Stage.STAGE_X and posY + dy < Stage.STAGE_Y + 1 and self.grids[posY+dy][posX+dx] == "")):
+>>>>>>> 401a3c87250745e3551a64a022ebc68e5452375e
                         return True
         return False
 
@@ -205,6 +220,7 @@ class Stage:
         blockSizeY = self.currentBlock.blockSize[1] 
         for (y, dy) in zip(range(blockSizeY), range(-self.currentBlock.blockSize[1]+1, 1)):
             for (x, dx) in zip(range(blockSizeX), range(0, self.currentBlock.blockSize[0])):
+<<<<<<< HEAD
                 if(Stage.STAGE_Y + 1 > self.currentBlock.posY+dy >= 0 and Stage.STAGE_X > self.currentBlock.posX+dx >= 0): # 剔除负数对显示的影响
                     if(self.currentBlock.shape[y][x] != ""): # 空白的当然不去覆盖原有的了
                         if(self.currentBlock.posY+dy >= 0): # 越界的当然不显示了
@@ -212,5 +228,12 @@ class Stage:
         for eachLine in totalGrids:
             for eachGrid in eachLine:
                 print("%c\t" % (eachGrid if eachGrid else ' '), end="")
+=======
+                if(self.currentBlock.posY+dy >= 0 and self.currentBlock.posX+dx >= 0): # 剔除负数对显示的影响
+                    totalGrids[self.currentBlock.posY+dy][self.currentBlock.posX+dx] = self.currentBlock.shape[y][x]
+        for eachLine in totalGrids:
+            for eachGrid in eachLine:
+                print("%c\t" % (eachGrid if eachGrid else '0'), end="")
+>>>>>>> 401a3c87250745e3551a64a022ebc68e5452375e
             print("")
         print("")
