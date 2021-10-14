@@ -251,7 +251,5 @@ class Stage:
                 if(idx_y == 0):
                     continue
                 if(eachGrid):
-                    pygame.draw.rect(screen, Block.COLOR_DICT[eachGrid], pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid), width=1)
-                # print("%c\t" % (eachGrid if eachGrid else ' '), end="")
-            # print("")
-        # print("")
+                    pygame.draw.rect(screen, Block.COLOR_DICT[eachGrid], pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid))
+                    pygame.draw.rect(screen, (0,0,0), pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid), width=1)

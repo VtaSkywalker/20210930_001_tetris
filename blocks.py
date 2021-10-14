@@ -24,8 +24,8 @@ class Block:
         shape : char[][]
             方块的形状
     """
-    NAME_DICT = {0:'square', 1:'triangle', 2:'z-shape', 3:'z-shape-r', 4:'bar'}
-    COLOR_DICT = {'a':(255,255,0), 'b':(255,0,255), 'c':(0,0,255), 'd':(255,0,0), 'e':(0,255,0)}
+    NAME_DICT = {0:'square', 1:'triangle', 2:'z-shape', 3:'z-shape-r', 4:'bar', 5:'guai', 6:'shuai'}
+    COLOR_DICT = {'a':(255,255,0), 'b':(255,0,255), 'c':(0,0,255), 'd':(255,0,0), 'e':(0,255,0), 'f':(0,255,255), 'g':(255,255,200)}
     MAX_BLOCK_TYPE_ID = len(NAME_DICT) # 方块有多少种
 
     def __init__(self, typeID):
@@ -72,6 +72,20 @@ class Block:
                                     ['e', '\000', '\000', '\000'],
                                     ['e', '\000', '\000', '\000'],
                                     ['e', '\000', '\000', '\000']])
+        elif(typeID == 5): # guai, 拐棍
+            self.blockSize = [3, 3]
+            self.rotateStateMax = 3
+            self.isRotateClockwise = True
+            self.shape = np.array([['\000', 'f', '\000'],
+                                    ['f', 'f', 'f'],
+                                    ['\000', '\000', '\000']])
+        elif(typeID == 6): # shuai, 甩棍
+            self.blockSize = [3, 3]
+            self.rotateStateMax = 3
+            self.isRotateClockwise = True
+            self.shape = np.array([['\000', '\000', '\000'],
+                                    ['\000', '\000', 'g'],
+                                    ['g', 'g', 'g']])
         self.name = Block.NAME_DICT[typeID]
         self.posX = -1
         self.posY = -1

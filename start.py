@@ -4,7 +4,6 @@ from stage import *
 def startGame():
     pygame.init()
     st = Stage()
-    st.drawInCmd()
     pixelPerGrid = 50
     edgeSize = 10
     width = pixelPerGrid * st.STAGE_X + 2 * edgeSize
