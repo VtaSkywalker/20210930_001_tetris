@@ -68,10 +68,10 @@ class Block:
             self.blockSize = [4, 4]
             self.rotateStateMax = 1
             self.isRotateClockwise = False
-            self.shape = np.array([['e', '\000', '\000', '\000'],
-                                    ['e', '\000', '\000', '\000'],
-                                    ['e', '\000', '\000', '\000'],
-                                    ['e', '\000', '\000', '\000']])
+            self.shape = np.array([['\000', 'e', '\000', '\000'],
+                                    ['\000', 'e', '\000', '\000'],
+                                    ['\000', 'e', '\000', '\000'],
+                                    ['\000', 'e', '\000', '\000']])
         elif(typeID == 5): # guai, 拐棍
             self.blockSize = [3, 3]
             self.rotateStateMax = 3
