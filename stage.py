@@ -253,3 +253,4 @@ class Stage:
                 if(eachGrid):
                     pygame.draw.rect(screen, Block.COLOR_DICT[eachGrid], pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid))
                     pygame.draw.rect(screen, (0,0,0), pygame.Rect(idx_x * pixelPerGrid + edgeSize, (idx_y - 1) * pixelPerGrid + edgeSize, pixelPerGrid, pixelPerGrid), width=1)
+                    pygame.draw.rect(screen, (255,255,255), pygame.Rect(edgeSize, edgeSize, self.STAGE_X * pixelPerGrid, self.STAGE_Y * pixelPerGrid), width=1)
