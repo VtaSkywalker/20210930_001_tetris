@@ -6,7 +6,7 @@ import tkinter.messagebox
 def startGame():
     pygame.init()
     st = Stage()
-    pixelPerGrid = 50
+    pixelPerGrid = 40
     edgeSize = 10
     width = pixelPerGrid * st.STAGE_X + 2 * edgeSize
     height = pixelPerGrid * st.STAGE_Y + 2 * edgeSize
