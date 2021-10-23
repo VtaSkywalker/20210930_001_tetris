@@ -1,7 +1,6 @@
 from numpy import e
 from blocks import Block
 from stage import Stage
-import getch
 import pygame
 
 def testBlockRotate():

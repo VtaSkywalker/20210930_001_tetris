@@ -209,7 +209,7 @@ class Stage:
         """
             在命令窗画出当前界面，用于调试
         """
-        os.system("clear")
+        os.system("cls")
         totalGrids = copy.copy(self.grids)
         blockSizeX = self.currentBlock.blockSize[0]
         blockSizeY = self.currentBlock.blockSize[1] 
